@@ -1,6 +1,6 @@
 FROM node:16.14-alpine
 WORKDIR /app-frontend
-# copia o package.json
+# copia todos os package
 COPY package* ./
 # instala as dependências
 RUN npm install
