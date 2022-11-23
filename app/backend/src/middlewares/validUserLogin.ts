@@ -32,16 +32,3 @@ export const validUserLoged = (req: Request, res: Response, next: NextFunction) 
 
   next();
 };
-
-// export const validUserLogedMatch = (req: Request, res: Response, next: NextFunction) => {
-//   const { authorization } = req.headers;
-
-//   try {
-//     const verifyToken = verify(authorization as any, JWT_SECRET);
-//     verifyToken as JwtPayload;
-//   } catch (err) {
-//     return res.status(401).json({ message: 'Token must be a valid token' });
-//   }
-
-//   next();
-// };

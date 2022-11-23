@@ -13,12 +13,10 @@ export const userLogin = async (req: Request, res: Response) => {
     return res.status(401).json({ message: errorMessage });
   }
 
-  // Vou deixar assim por enqunato porque não está vindo o password do banco de dados para comparar
   const validPassword = compareSync(password, user.password);
   // console.log('validPassword: ', validPassword);
 
   // dificulta para o caso de alguma invasão não deixando claro se é usuário ou password inválidos.
-
   if (!validPassword) {
     return res.status(401).json({ message: errorMessage });
   }
