@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import * as matchController from '../controllers/matchController';
 import { validToken } from '../middlewares/validMatches';
-// import { validUserLogedMatch } from '../middlewares/validUserLogin';
+
 
 const router = Router();
 
