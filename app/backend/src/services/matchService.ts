@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+// import { Request, Response } from 'express';
 import Teams from '../database/models/Teams';
 import Matches from '../database/models/Matches';
 
@@ -28,26 +28,44 @@ export const getAllMatchesInProgress = async (inProgress: any) => {
   return matches as Matches[];
 };
 
-export const updateMatchProgress = async (id: number) => {
-  const updateMatch = await Matches.update({ inProgress: false }, { where: { id } });
+export const createMatch = async (match: any) => {
+  const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = match;
 
-  return updateMatch;
+  const create = await Matches.create({
+    homeTeam,
+    awayTeam,
+    homeTeamGoals,
+    awayTeamGoals,
+  });
+
+  return create;
 };
 
-export const verifyTeams = async (req: Request, res: Response) => {
-  const { teamHome, teamAway } = req.body;
-  const home = await Teams.findByPk(teamHome);
-  const away = await Teams.findByPk(teamAway);
+export const finishedMatch = async (id: any) => {
+  await Matches.update({ inProgress: false }, { where: { id } });
 
-  if (teamHome === teamAway) {
-    return res.status(422).json({
-      message: 'It is not possible to create a match with two equal teams',
-    });
-  }
+  return { message: 'Finished' };
+};
 
-  if (!home || !away) {
-    return res.status(404).json({ message: 'There is no team with such id!' });
-  }
+export const editMatch = async (id: any, homeTeamGoals: any, awayTeamGoals: any) => {
+  await Matches.update(
+    { homeTeamGoals, awayTeamGoals },
+    { where: { id } },
+  );
+
+  return { message: 'Match edited' };
+};
+
+export const getAllFinished = async () => {
+  const matches = await Matches.findAll({
+    where: { inProgress: false },
+    include: [
+      { model: Teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+      { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
+    ],
+  });
+
+  return matches as Matches[];
 };
 
 // Só para o lint não reclamar
