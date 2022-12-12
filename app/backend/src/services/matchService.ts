@@ -36,7 +36,9 @@ export const createMatch = async (match: any) => {
     awayTeam,
     homeTeamGoals,
     awayTeamGoals,
+    inProgress: true,
   });
+
 
   return create;
 };

@@ -10,9 +10,9 @@ export const validUserLogin = (req: Request, res: Response, next: NextFunction) 
     return res.status(400).json({ message: 'All fields must be filled' });
   }
 
-  if (!emailRegex.test(email) || password.length < 6) {
-    return res.status(401).json({ message: 'Incorrect email or password' });
-  }
+  // if (!emailRegex.test(email) || password.length < 6) {
+  //   return res.status(401).json({ message: 'Incorrect email or password' });
+  // }
 
   next();
 };

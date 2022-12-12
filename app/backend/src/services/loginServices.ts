@@ -4,7 +4,9 @@ export const getUserByEmail = async (email: any) => {
   // constantes com mensagem de erro e busca do usuário no banco de dados
   const errorMessage = 'Incorrect email or password';
   const user = await Users.findOne({ where: { email } });
-  // console.log('user: ', user);
+  // console.log('user: ', user);,
+  console.log('email: ', email)
+  console.log('user: ', user)
 
   // verificações se existe o usuário
   if (!user) {
