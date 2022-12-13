@@ -8,8 +8,8 @@ if (!JWT_SECRET) {
   throw error;
 }
 
-export const createToken = (email: any) => {
-  const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 2592000 }); // equivale á 30 dias convertido em segundos
+export const createToken = (payload: any) => {
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 2592000 }); // equivale á 30 dias convertido em segundos
   return token;
 };
 

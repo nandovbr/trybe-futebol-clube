@@ -21,7 +21,7 @@ export const userLogin = async (req: Request, res: Response) => {
     return res.status(401).json({ message: errorMessage });
   }
 
-  const token = createToken({ email });
+  const token = createToken({ email, role: user.role });
   // console.log('token: ', token);
 
   if (!token) {
@@ -32,13 +32,7 @@ export const userLogin = async (req: Request, res: Response) => {
 };
 
 export const validUserLoged = async (req: Request, res: Response) => {
-  const { email } = req.body;
-  const { user } = await loginServices.getUserByEmail(email);
-  // console.log('user: ', user);
-
-  if (!user) {
-    return res.status(401).json({ message: errorMessage });
-  }
+  const { user } = req.body;
 
   return res.status(200).json({ role: user.role });
 };

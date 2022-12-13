@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as matchService from '../services/matchService';
-// import Matches from '../database/models/Matches';
 // import Teams from '../database/models/Teams';
+// import Matches from '../database/models/Matches';
 
 // Traz todas as mathces com inProgress === true || false
 export const getAllMatches = async (req: Request, res: Response) => {
@@ -19,11 +19,17 @@ export const getAllMatches = async (req: Request, res: Response) => {
 
 export const createMatch = async (req: Request, res: Response) => {
   const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
+  const existHomeTeam = await matchService.existTeam(homeTeam);
+  const existAwayTeam = await matchService.existTeam(awayTeam);
 
-  const equal = 'It is not possible to create a match with two equal teams';
+  if (!existHomeTeam || !existAwayTeam) {
+    return res.status(404).json({ message: 'There is no team with such id!' });
+  }
+
+  const msg = 'It is not possible to create a match with two equal teams';
 
   if (homeTeam === awayTeam) {
-    return res.status(400).json({ message: equal });
+    return res.status(422).json({ message: msg });
   }
 
   const newMatch = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals };

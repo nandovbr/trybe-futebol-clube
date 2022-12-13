@@ -39,8 +39,13 @@ export const createMatch = async (match: any) => {
     inProgress: true,
   });
 
-
   return create;
+};
+
+export const existTeam = async (team: any) => {
+  const teamExists = await Teams.findOne({ where: { id: team } });
+
+  return teamExists;
 };
 
 export const finishedMatch = async (id: any) => {
