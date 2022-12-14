@@ -104,8 +104,8 @@ describe('Teste Matches', () => {
         .request(app)
         .post('/matches')
     
-    expect(chaiHttpResponse.status).to.equal(200);
-    expect(chaiHttpResponse.body).to.be.equal(matchTest);
+        expect(chaiHttpResponse.status).to.equal(200);
+        expect(chaiHttpResponse.body).to.be.equal(matchTest);
     });
 
     it('Quando status code 200 e lista uma das partidas', async () => {
@@ -113,8 +113,17 @@ describe('Teste Matches', () => {
         .request(app)
         .post('/matches/5')
     
-    expect(chaiHttpResponse.status).to.equal(200);
-    expect(chaiHttpResponse.body).to.be.equal(idMatchTest);
+        expect(chaiHttpResponse.status).to.equal(200);
+        expect(chaiHttpResponse.body).to.be.equal(idMatchTest);
+    });
+
+    it('Quando status code 200 com inProgreess false', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .get('/matches')
+        .query({ inProgress: false })
+    
+        expect(chaiHttpResponse.status).to.equal(200);
     });
   });
 });
