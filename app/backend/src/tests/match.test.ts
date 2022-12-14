@@ -108,13 +108,13 @@ describe('Teste Matches', () => {
     expect(chaiHttpResponse.body).to.be.equal(matchTest);
     });
 
-    it('Quando status code 200 e lista todas as partidas com inProgress false', async () => {
+    it('Quando status code 200 e lista uma das partidas', async () => {
       chaiHttpResponse = await chai
         .request(app)
-        .post('/matches')
-
+        .post('/matches/5')
+    
     expect(chaiHttpResponse.status).to.equal(200);
-    expect(chaiHttpResponse.body).to.have.property('InProgress');
+    expect(chaiHttpResponse.body).to.be.equal(idMatchTest);
     });
   });
 });
