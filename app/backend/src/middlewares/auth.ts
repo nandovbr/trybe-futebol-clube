@@ -13,5 +13,5 @@ export const createToken = (payload: any) => {
   return token;
 };
 
-// Só para o lint não reclamar
+// para o lint não reclamar
 export const getAll = async () => {};
